@@ -1,0 +1,17 @@
+{
+  "name": "@fossi-foundation/github-action-lib",
+  "version": "0.0.1",
+  "description": "Helper functions for our GitHub Actions",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+  },
+  "devDependencies": {
+    "@actions/cache": "^4.0.5",
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/tool-cache": "^2.0.2"
+  }
+}
