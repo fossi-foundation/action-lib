@@ -32,7 +32,7 @@ export async function devbox_check_pkg_version(pkgName, version) {
 export async function nix_ensure(extra_conf) {
     core.startGroup("Ensuring Nix is installed");
     if (!fs.existsSync(`/nix/var/nix/profiles/default/bin/nix`)) {
-        const installerDir = tc.find('nix-installer', '3.8.6', process.arch);
+        let installerDir = tc.find('nix-installer', '3.8.6', process.arch);
         if (!installerDir) {
             core.info("Nix installer not cached. Downloading");
             let arch = process.arch === "arm64" ? "aarch64" : "x86_64";
@@ -40,10 +40,10 @@ export async function nix_ensure(extra_conf) {
             await exec.exec(`chmod +x ${installerFile}`);
             installerDir = await tc.cacheFile(installerFile, 'nix-installer', 'nix-installer', '3.8.6', process.arch);
         }
-        const extra_conf_arg = extra_conf ? `--extra-conf "${extra_conf}"` : '';
+        let extra_conf_arg = extra_conf ? `--extra-conf "${extra_conf}"` : '';
         await exec.exec(`${installerDir}/nix-installer install --no-confirm ${extra_conf_arg}`);
     }
-    await core.addPath(`/nix/var/nix/profiles/default/bin`);
+    core.addPath(`/nix/var/nix/profiles/default/bin`);
     core.endGroup();
 }
 
